@@ -32,10 +32,10 @@ jobs:
       - name: Run MLflow Project
         shell: bash -el {0}
         run: |
-          # Membersihkan seluruh cache mlflow dan memaksa backend store menggunakan file sqlite baru yang bersih
+          # Membersihkan seluruh cache mlflow lokal
           rm -rf ~/.mlflow mlflow.db mlruns
 
           eval "$(conda shell.bash hook)"
 
-          # Menjalankan mlflow dengan mendefinisikan tracking uri lokal yang bersih
-          mlflow run MLProject --backend local --env-manager=conda --uri .
+          # Menjalankan mlflow run dengan path folder MLProject di akhir
+          mlflow run MLProject --backend local --env-manager=conda
