@@ -43,23 +43,20 @@ jobs:
         run: |
           mlflow run MLProject --env-manager=local
 
-      - name: Get latest run id
-        run: |
-          python <<EOF
-          import mlflow
-          runs = mlflow.search_runs(experiment_ids=["0"])
-          run_id = runs.iloc[0]["run_id"]
-          print("RUN_ID =", run_id)
-          with open("$GITHUB_ENV","a") as f:
-              f.write(f"RUN_ID={run_id}\n")
-          EOF
-
-      # 6. Dapatkan ID eksperimen terakhir
+      # 6. Dapatkan RUN ID
       - name: Get latest MLflow run_id
         run: |
-          RUN_ID=$(ls -td mlruns/0/*/ | head -n 1 | cut -d'/' -f3)
-          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
-          echo "Berhasil mendapatkan latest run_id: $RUN_ID"
+          python - <<EOF
+          import mlflow
+
+          runs = mlflow.search_runs(experiment_ids=["0"])
+          run_id = runs.iloc[0]["run_id"]
+
+          print("Latest run:", run_id)
+
+          with open("${GITHUB_ENV}", "a") as f:
+              f.write(f"RUN_ID={run_id}\n")
+          EOF
 
       # 7. Build Docker Image (Ganti nama image lokal menjadi epesantren-model)
       - name: Build Docker Model
