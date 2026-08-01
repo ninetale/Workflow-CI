@@ -43,6 +43,17 @@ jobs:
         run: |
           mlflow run MLProject --env-manager=local
 
+      - name: Get latest run id
+        run: |
+          python <<EOF
+          import mlflow
+          runs = mlflow.search_runs(experiment_ids=["0"])
+          run_id = runs.iloc[0]["run_id"]
+          print("RUN_ID =", run_id)
+          with open("$GITHUB_ENV","a") as f:
+              f.write(f"RUN_ID={run_id}\n")
+          EOF
+
       # 6. Dapatkan ID eksperimen terakhir
       - name: Get latest MLflow run_id
         run: |
