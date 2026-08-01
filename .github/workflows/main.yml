@@ -32,5 +32,8 @@ jobs:
       - name: Run MLflow Project
         shell: bash -el {0}
         run: |
+          # Menghapus cache database mlflow lama agar tidak konflik migrasi alembic
+          rm -rf ~/.mlflow mlflow.db
+
           eval "$(conda shell.bash hook)"
-          mlflow run MLProject --backend local --env-manager=conda
+          mlflow run MLProject --backend local --env-manager=condas
