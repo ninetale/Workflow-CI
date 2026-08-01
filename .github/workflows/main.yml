@@ -24,9 +24,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install mlflow scikit-learn pandas numpy
 
+      - name: Reset MLflow Database / Artifacts
+        run: |
+          # Menghapus direktori mlruns lama jika ada agar tidak konflik versi migrasi alembic
+          rm -rf mlruns
+
       - name: Run MLflow Project
         shell: bash -el {0}
         run: |
-          # Mengaktifkan lingkungan dan menjalankan MLflow Project
           eval "$(conda shell.bash hook)"
           mlflow run MLProject --backend local --env-manager=conda
