@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 env:
-  CSV_URL: "MLProject/data_tagihan_bersih.csv"
+  CSV_URL: "data_tagihan_bersih.csv"
   TARGET_VAR: "status_pembayaran"
 
 jobs:
