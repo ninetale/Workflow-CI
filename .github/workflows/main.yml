@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 env:
-  CSV_URL: "MLproject/data_tagihan_bersih.csv"
+  CSV_URL: "MLProject/data_tagihan_bersih.csv"
   TARGET_VAR: "status_pembayaran"
 
 jobs:
@@ -36,12 +36,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install mlflow
-          pip install -r MLproject/requirements.txt
+          pip install -r MLProject/requirements.txt
 
       # 5. Jalankan MLflow project
       - name: Run mlflow project
         run: |
-          mlflow run MLproject --env-manager=local
+          mlflow run MLProject --env-manager=local
 
       # 6. Dapatkan ID eksperimen terakhir
       - name: Get latest MLflow run_id
