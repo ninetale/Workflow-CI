@@ -36,4 +36,4 @@ jobs:
           rm -rf ~/.mlflow mlflow.db
 
           eval "$(conda shell.bash hook)"
-          mlflow run MLProject --backend local --env-manager=condas
+          mlflow run MLProject --backend local --env-manager=conda
